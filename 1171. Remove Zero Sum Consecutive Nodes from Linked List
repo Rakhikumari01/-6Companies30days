@@ -1,0 +1,20 @@
+class Solution {
+    public ListNode removeZeroSumSublists(ListNode head) {
+        
+ Map<Integer, ListNode> map = new HashMap<>();
+        ListNode preHead = new ListNode(0);
+        preHead.next = head;
+        int sum = 0;
+        for(ListNode p = preHead; p != null; p = p.next) {
+            sum += p.val;
+            map.put(sum, p);
+        }
+        sum = 0;
+        for(ListNode p = preHead; p != null; p = p.next) {
+            sum += p.val;
+            p.next = map.get(sum).next;
+        }
+        return preHead.next;
+        
+    }
+}
