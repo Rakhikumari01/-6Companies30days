@@ -1,0 +1,105 @@
+//User function Template for Java
+
+// class Node  
+// { 
+//     int data; 
+//     Node left, right; 
+   
+//     public Node(int d)  
+//     { 
+//         data = d; 
+//         left = right = null; 
+//     } 
+// }
+
+class Solution
+{
+	ArrayList <Integer> boundary(Node node)
+	
+	{
+	
+	  //left,leaf-inorder,right;
+	  
+	  ArrayList<Integer> ans = new ArrayList<>();
+	  if(isLeaf(node)==false)
+	   ans.add(node.data);
+	   addLeftboundary(node, ans);
+	   addLeafNode(node, ans);
+	   addRightboundary(node, ans);
+	   
+	   return ans;
+	    
+	}
+	
+	boolean isLeaf(Node root){
+
+        return root.left==null && root.right==null;
+	      }
+	
+	
+ public void addLeftboundary(Node root, ArrayList<Integer> res) {
+	    
+	    Node curr = root.left;
+	    while(curr != null)
+	     {
+	         if(isLeaf(curr)== false)
+	          res.add(curr.data);
+	          
+	          if(curr.left!= null )
+	          curr = curr.left;
+	          
+	          else
+	           curr = curr.right;
+	   
+	     }
+ }
+	     
+	      
+	      
+	   void addLeafNode(Node root,ArrayList<Integer> res){
+        
+        Node cur = root;
+        
+        if(isLeaf(cur)){
+
+            res.add(cur.data);
+
+            return;
+
+        }
+
+        if(cur.left!=null) addLeafNode(cur.left,res);
+
+        if(cur.right!=null) addLeafNode(cur.right,res);
+
+    }
+	     
+	   public void addRightboundary(Node root, ArrayList<Integer> res) {
+	         Node curr = root.right;
+	         ArrayList<Integer> temp = new ArrayList<Integer>();
+	         
+	         while(curr!= null) {
+	             if(isLeaf(curr)== false)
+	               temp.add(curr.data);
+	               
+	               if(curr.right!= null)
+	                 curr = curr.right;
+	                 
+	                 else
+	                  curr=curr.left;
+	                 
+	             
+	         }
+	         
+	         
+	         for(int i = temp.size()-1; i>=0; --i){
+	             res.add(temp.get(i));
+	         }
+	         
+	         
+	     }
+	    
+	    
+	
+	
+}
